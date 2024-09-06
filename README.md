@@ -18,7 +18,7 @@ buyers' needs while ensuring factual integrity is maintained. The system is desi
  
  A notebook that shows how to use the real state agent is also provide (`real-state-matching.ipynb`).
 
-Here is a detailed explanation of the components of the application
+Here is a detailed explanation of the components of the application:
  
  ## 1. Synthetic Data Generation
  
@@ -27,30 +27,28 @@ Here is a detailed explanation of the components of the application
 Generating synthetic real estate house data involves creating realistic data entries 
 that can be used for testing, analysis, or training machine learning models. Here’s a step-by-step guide on how to achieve this:
 
-1. Create a prompt for the LLM
-To generate synthetic data, you need to create a detailed prompt for a language model,
+1. Create a prompt for the LLM: To generate synthetic data, you need to create a detailed prompt for a language model,
  such as those provided by LangChain or OpenAI. The prompt is a request that instructs 
  the model on what kind of data to generate.
 
 2. Define the data format and features to generate: Specify the format in which you want 
-the model to generate the data. Formats like CSV or JSON 
-(JavaScript Object Notation) are preferred because they are structured and can be easily 
+the model to generate the data. Formats like CSV or JSON are preferred because 
+they are structured and can be easily 
 parsed. In this example, we’ll use JSON for its flexibility and readability. 
 The features will be represented as columns or keys in the dataset.
 
 3. Generate the synthetic data and parse it: The prompt is fed to the LLM to 
-generate the data. The LLM output is text or string format and it need to be parsed 
+generate the data. The LLM output is text or string format, and it needs to be parsed 
 into JSON format.
 
-
-
-### 2.2 Generate Generating Real Estate Listings Images with Vision Language Model
+   
+### 2.2 Generate Real Estate Listings Images with Vision Language Model
 
 We want our house matching AI agent to have multimodal search capability. Normally, real states have the image of the houses. Here, we generate image of the houses using `OpenAI DALL-E 2` [here](https://platform.openai.com/docs/api-reference/images/create) using the `openai.Image.create` endpoint.
 
-This is a two step process:
+This is a two-step process:
 1. The house description was formated from the generated data.
-2. The house description was fed to OpenAI DALL-E pipeline to generate image.
+2. The house description was fed to OpenAI DALL-E pipeline to generate image and generated image are saved locally.
 
 Have a look the implementation of `generate_real_state_images(...)` function for detail.
 
@@ -72,21 +70,25 @@ For text embedding, we use the CLIP text encoding model. While CLIP is convenien
 #### Image Embedding
 For image embedding, we use the CLIP model, which provides a robust way to encode visual information into a vector representation.
 
-
 For multimodal search, we need to `combine` the embedding text and image and store them in a vector database. These could be achieved in various methods:
 
-1. Concatination: concatination of text and image embeddings to create one vector. This is the easiest way, but this results in a high dimensional vector which increase storage memory need and decrease retrieval performance.
+1. Concatination: concatination of text and image embeddings to create one vector. This is the easiest way, but this results in a high dimensional vector which increase storage memory need and decrease retrieval performance. 
+
 2. Averaging: this is element-wise averaging of text and image embedding vectors. This create an embedding vector that equally represents both modality.
 3. Weighted averaging: this strategy averages the embeddings based on their importance. For example, in house matching, `text` could have more importance than image since could explain their preference in detail than an image with similar features.
 
-**`final_embedding = α * text_embedding + (1-α) * image_embedding**, where α=0.8. With real dataset, the value of α should be fine-tuned to improve search perfomrance.` α = 0.8 is chosen to give more importance to text embedding.
+```
+final_embedding = α * text_embedding + (1-α) * image_embedding, where α=0.8. 
+
+```
+With real dataset, the value of α should be fine-tuned to improve search perfomrance. α = 0.8 is chosen to give more importance to text embedding.
 
 #### Normalization
 
 Before combining text and image embeddings, it’s important to normalize the vectors. This ensures that they are on a similar scale and makes the combination process more effective. Here, we apply L2 normalisation of each embedding before combining.
 
 ## 3. Vector Database
-- The semantic and visual embedding of images and text were store in database that allow vector search
+- The semantic and visual embedding of images and text were store in database to enable vector search
 - Lancedb library was used for vector database
 - Indexing could be applied but here we have only limited number of data
 - Here is the schema of the lance db vector database
@@ -129,7 +131,7 @@ class RealState(LanceModel):
 ## 4. Collecting User Preference
 
 For house matching, I implemented an app to collect user preference. 
-The app is built in `gradio`. It can be found in (`house_matcher_app(...)`). 
+The app is built in `gradio`. The implementation of the app is in (`house_matcher_app(...)`) function of `house_match_app.py` file. 
 The app allows users:
 1. To enter and submit their preferences
 2. Interactively visualise the search results matching with their description. 

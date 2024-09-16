@@ -1,4 +1,4 @@
-# Personalised Real State Agent
+# Personalised real estate AI agent using multimodal semantic search
 
 This repository contains implementation of a **Personalised Real State AI Agent**. 
 It is an AI based real state recommendation system that utilises multimodal search capabilities of Large Language Models and Vision Models and

@@ -18,6 +18,11 @@ buyers' needs while ensuring factual integrity is maintained. The system is desi
  
  A notebook that shows how to use the real state agent is also provide (`real-state-matching.ipynb`).
 
+![./images/homematch.png](./images/homematch.png)
+
+Figure 1: Home matching pipeline
+
+
 Here is a detailed explanation of the components of the application:
  
  ## 1. Synthetic Data Generation
@@ -140,6 +145,8 @@ The app shows both images and description.
  
 ![app](./images/app.PNG)
 
+Figure 2: Home matching app
+
 ## 5. Search Logic
 The search logic accepts the user preference, generates vector embedding of the preference, finds and returns real estate listings that match user preferences by embedding the 
 search query and comparing it with listings in a database. 
@@ -158,4 +165,7 @@ It retrieves matching listings, along with their images.
 Finally, the search and the augmented response generation logics provide images of the matching properties and a personalized description of the property according to the user preference. These are displayed on the app.
 
 ![sample result](./images/results.PNG)
+
+Figure 3: Sample results showing listing with similar description to user preference, with personalised description of the 
+real estates along with the listing image.
 

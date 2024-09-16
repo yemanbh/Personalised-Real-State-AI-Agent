@@ -23,7 +23,7 @@ buyers' needs while ensuring factual integrity is maintained. The system is desi
 Figure 1: Home matching pipeline
 
 
-Here is a detailed explanation of the components of the application:
+## Detailed explanation of the components of the pipeline
  
  ## 1. Synthetic Data Generation
  
